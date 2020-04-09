@@ -60,19 +60,13 @@ if (playername):
         ).lower()
         #
         # If the user enters a cardinal direction, attempt to move to the room there.
-        if option == "n":
-            player.curr_room = player.curr_room.n_to
-        if option == "s":
-            player.curr_room = player.curr_room.s_to
-        if option == "e":
-            player.curr_room = player.curr_room.e_to
-        if option == "w":
-            player.curr_room = player.curr_room.w_to
-        if option == "q":
+        if option in ["n", "s", "e", "w"]:
+            player.move(option)
+        elif option == "q":
             print(f"\n************\nGoodbye {playername}\n************")
             break
         else:
-            print("Invalid input")
+            print("\n************\nInvalid input\n************\n")
 
 # Print an error message if the movement isn't allowed.
 #
