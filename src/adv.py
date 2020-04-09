@@ -64,17 +64,23 @@ if (playername):
         if len(cmd) == 1:
             if cmd[0] in ["n", "s", "e", "w"]:
                 player.move(cmd[0])
-            if cmd[0] == "l":
+            elif cmd[0] == "l":
                 player.look_around()
-            if cmd[0] == "i":
+            elif cmd[0] == "i":
                 player.check_inventory()
-            if cmd[0] == "q":
+            elif cmd[0] == "q":
                 print(divider + "Goodbye !!" + divider)
                 break
             else:
                 print(divider + "Invalid Input" + divider)
 
         if len(cmd) == 2:
-            verbs = ["pick", "get", "take"]
-            if cmd[0] in verbs:
+            pick_verbs = ["pick", "get", "take"]
+            drop_verbs = ["drop", "use"]
+
+            if cmd[0] in pick_verbs:
                 player.pick_item(cmd[1])
+            elif cmd[0] in drop_verbs:
+                player.drop_item(cmd[1])
+            else:
+                print(divider + "You entered an Invalid action" + divider)
