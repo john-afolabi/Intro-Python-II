@@ -42,6 +42,7 @@ class Player:
         for i, item in enumerate(self.curr_room.items):
             if item.name.lower() == item_name:
                 self.inventory.append(item)
+                self.curr_room.items[i].on_take()
                 self.curr_room.items.remove(self.curr_room.items[i])
 
     def drop_item(self, item_name):
@@ -49,4 +50,5 @@ class Player:
         for i, item in enumerate(self.inventory):
             if item.name.lower() == item_name:
                 self.curr_room.items.append(item)
+                self.inventory[i].on_drop()
                 self.inventory.remove(self.inventory[i])
