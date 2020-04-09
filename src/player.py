@@ -23,12 +23,19 @@ class Player:
         else:
             print("You cannot go there")
 
-    def look(self):
+    def look_around(self):
         if len(self.curr_room.items) != 0:
             for item in self.curr_room.items:
                 print(f"\nItems in the Room:\n   {item.name}")
         else:
             print("\nThis room is Empty!")
+
+    def check_inventory(self):
+        if len(self.inventory) != 0:
+            for item in self.inventory:
+                print(f"\nYour Inventory:\n   {item.name}")
+        else:
+            print("\nYour Inventory is Empty!")
 
     def pick_item(self, item_name):
         self.item_name = item_name

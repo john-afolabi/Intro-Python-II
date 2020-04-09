@@ -65,9 +65,16 @@ if (playername):
             if cmd[0] in ["n", "s", "e", "w"]:
                 player.move(cmd[0])
             if cmd[0] == "l":
-                player.look()
+                player.look_around()
+            if cmd[0] == "i":
+                player.check_inventory()
             if cmd[0] == "q":
                 print(divider + "Goodbye !!" + divider)
                 break
             else:
                 print(divider + "Invalid Input" + divider)
+
+        if len(cmd) == 2:
+            verbs = ["pick", "get", "take"]
+            if cmd[0] in verbs:
+                player.pick_item(cmd[1])
