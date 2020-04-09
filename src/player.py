@@ -17,8 +17,18 @@ class Player:
         location = getattr(self.curr_room, str(f"{direction}_to"))
         if location:
             self.curr_room = location
+            print(
+                f"\nYou are in {self.curr_room.name}\n{self.curr_room.description}"
+            )
         else:
             print("You cannot go there")
+
+    def look(self):
+        if len(self.curr_room.items) != 0:
+            for item in self.curr_room.items:
+                print(f"\nItems in the Room:\n   {item.name}")
+        else:
+            print("\nThis room is Empty!")
 
     def pick_item(self, item_name):
         self.item_name = item_name
