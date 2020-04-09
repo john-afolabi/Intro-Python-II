@@ -1,5 +1,6 @@
 from room import Room
 from player import Player
+from item import Item
 # Declare all the rooms
 
 room = {
@@ -25,6 +26,8 @@ chamber! Sadly, it has already been completely emptied by
 earlier adventurers. The only exit is to the south."""),
 }
 
+room["outside"].items.append(Item("Book", "An old dusty book"))
+
 # Link rooms together
 
 room['outside'].n_to = room['foyer']
@@ -36,43 +39,35 @@ room['narrow'].w_to = room['foyer']
 room['narrow'].n_to = room['treasure']
 room['treasure'].s_to = room['narrow']
 
-#
-# Main
-#
-# Make a new player object that is currently in the 'outside' room.
-playername = input(
-    "\n************\nWelcome!!!\n************\nEnter your player name: ")
+divider = "\n-----------------------------------\n"
+running = True
+
+playername = input(divider + "Welcome!!!" + divider +
+                   "Enter your player name: ")
 
 if (playername):
-    player = Player(playername, room['outside'])
-    # Write a loop that:
-    #
-    while True:
-        # * Prints the current room name
-        if player.curr_room:
-            print(
-                f"\nYou are in the {player.curr_room.name}\n{player.curr_room.description}"
-            )
-        else:
-            print('You cannot go in that direction')
-        if len(player.curr_room.items) > 0:
-            print("\n The following items are in the room:")
-            for item in player.curr_room.items:
-                print(f"\n{item.name}")
-        # * Waits for user input and decides what to do.
-        option = input(
-            f"\nWhat direction are you going {player.name}?\nEnter:\n   N for North\n   S for South\n   E for East\n   W for West: "
-        ).lower()
-        #
-        # If the user enters a cardinal direction, attempt to move to the room there.
-        if option in ["n", "s", "e", "w"]:
-            player.move(option)
-        elif option == "q":
-            print(f"\n************\nGoodbye {playername}\n************")
-            break
-        else:
-            print("\n************\nInvalid input\n************\n")
+    while running:
+        player = Player(playername, room['outside'])
+        print(f"\nHi {playername}\n")
+        print("What do you want to do?")
+        print("     N: to move North")
+        print("     S: to move South")
+        print("     E: to move East")
+        print("     W: to move West")
+        print("     I: to see Inventory")
+        print("     L: to look Around")
+        print("     Q: to Quit")
+        option = input("Select an option: ").lower()
 
-# Print an error message if the movement isn't allowed.
-#
-# If the user enters "q", quit the game.
+        cmd = option.split()
+
+        if len(cmd) == 1:
+            if cmd[0] in ["n", "s", "e", "w"]:
+                player.move(cmd[0])
+            if cmd[0] == "l":
+                player.look()
+            if cmd[0] == "q":
+                print(divider + "Goodbye !!" + divider)
+                break
+            else:
+                print(divider + "Invalid Input" + divider)
