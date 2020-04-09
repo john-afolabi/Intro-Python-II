@@ -50,10 +50,15 @@ if (playername):
     while True:
         # * Prints the current room name
         if player.curr_room:
-            print(f"\nYou are in the {player.curr_room}")
+            print(
+                f"\nYou are in the {player.curr_room.name}\n{player.curr_room.description}"
+            )
         else:
             print('You cannot go in that direction')
-        # * Prints the current description (the textwrap module might be useful here).
+        if len(player.curr_room.items) > 0:
+            print("\n The following items are in the room:")
+            for item in player.curr_room.items:
+                print(f"\n{item.name}")
         # * Waits for user input and decides what to do.
         option = input(
             f"\nWhat direction are you going {player.name}?\nEnter:\n   N for North\n   S for South\n   E for East\n   W for West: "
